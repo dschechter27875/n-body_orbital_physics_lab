@@ -257,7 +257,55 @@ For large astrophysical simulations, more advanced algorithms are used:
 
 - Barnes–Hut trees
 - Fast multipole methods
+---
 
+# Implementation Architecture
+
+Core components of the simulation:
+
+### Body class
+
+Stores:
+
+• mass  
+• position  
+• velocity  
+• acceleration  
+• visual trail  
+
+---
+
+### Physics engine
+
+Computes:
+
+• pairwise gravitational accelerations  
+• velocity updates  
+• position updates  
+
+---
+
+### Simulation engine
+
+Controls:
+
+• time stepping  
+• integration method  
+• physics parameters  
+
+---
+
+### Visualization
+
+Matplotlib is used to render:
+
+• orbital trajectories  
+• animated simulations  
+• energy diagnostic plots  
+
+---
+
+### Interactive UI
 ---
 ### Interactive UI
 
