@@ -157,6 +157,7 @@ Position update:
 
 $$
 \mathbf{r}_{t+\Delta t}
+$$
 =
 \mathbf{r}_t
 +
@@ -169,6 +170,7 @@ Velocity update:
 
 $$
 \mathbf{v}_{t+\Delta t}
+$$
 =
 \mathbf{v}_t
 +
@@ -305,8 +307,6 @@ Matplotlib is used to render:
 
 ---
 
-### Interactive UI
----
 ### Interactive UI
 
 The Hugging Face interface allows users to modify:
