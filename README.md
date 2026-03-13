@@ -6,48 +6,21 @@ Live interactive demo:
 
 https://huggingface.co/spaces/dschechter27/N-Body_Orbital_Physics_Lab
 
-This project implements a full **N-body gravitational simulation engine**, interactive **parameter exploration UI**, and **energy diagnostics** to verify the physical correctness of the simulation.
-
-The simulator is deployed as an interactive app using **Gradio + Hugging Face Spaces**.
-
 ---
 
 ## Demo
 
 ![Simulation Demo](assets/screenshotlab.png)
 
-Example animation:
-
 ![Three Body Demo](assets/three_body_demo.gif)
-
----
-
-# Overview
-
-This project simulates the gravitational motion of multiple bodies interacting through Newton's law of universal gravitation.
-
-Users can experiment with:
-
-• Two-body orbital systems  
-• Chaotic three-body dynamics  
-• Custom gravitational experiments  
-• Energy conservation diagnostics  
-• Adjustable numerical simulation parameters  
-
-The engine uses a **Velocity Verlet integrator**, a numerical method commonly used in:
-
-• astrophysics simulations  
-• molecular dynamics  
-• orbital mechanics  
-• particle simulations  
 
 ---
 
 # Physics Model
 
-The simulator models the **classical N-body gravitational problem**.
+This simulator models the **classical N-body gravitational problem**, where multiple bodies interact through Newtonian gravity.
 
-For N bodies interacting gravitationally, each body experiences the combined gravitational force of all other bodies.
+Each body experiences the combined gravitational force of every other body in the system.
 
 ---
 
@@ -55,35 +28,35 @@ For N bodies interacting gravitationally, each body experiences the combined gra
 
 The gravitational force between two masses is:
 
-\[
+$$
 F = G \frac{m_i m_j}{r^2}
-\]
+$$
 
 Where
 
-• \(G\) — gravitational constant  
-• \(m_i, m_j\) — masses  
-• \(r\) — distance between bodies  
+- $G$ = gravitational constant  
+- $m_i, m_j$ = masses of the bodies  
+- $r$ = distance between them  
 
 ---
 
-# Vector Form Used in the Simulation
+# Vector Form of the Force
 
-Because the system is simulated in 2-D space, we use the vector formulation of Newtonian gravity:
+In the simulation we use the **vector form** of the gravitational force:
 
-\[
+$$
 \mathbf{F}_{ij} =
 G \frac{m_i m_j}{|\mathbf{r}_{ij}|^3}
 \mathbf{r}_{ij}
-\]
+$$
 
-Where
+where
 
-\[
+$$
 \mathbf{r}_{ij} = \mathbf{r}_j - \mathbf{r}_i
-\]
+$$
 
-This automatically produces both the **magnitude and direction** of the gravitational force.
+This produces both the **correct magnitude and direction** of the force.
 
 ---
 
@@ -91,94 +64,78 @@ This automatically produces both the **magnitude and direction** of the gravitat
 
 Using Newton's Second Law:
 
-\[
+$$
 F = ma
-\]
+$$
 
 we compute acceleration directly:
 
-\[
+$$
 \mathbf{a}_i =
 \sum_{j \ne i}
 G \frac{m_j}{|\mathbf{r}_{ij}|^3}
 \mathbf{r}_{ij}
-\]
+$$
 
 Each body accumulates acceleration contributions from **all other bodies**.
 
 ---
 
-# Orbital Mechanics
+# Circular Orbit Velocity
 
 For a stable circular orbit, gravitational force must equal centripetal force.
 
 Centripetal force:
 
-\[
+$$
 F_c = \frac{mv^2}{r}
-\]
+$$
 
 Gravitational force:
 
-\[
+$$
 F_g = G \frac{Mm}{r^2}
-\]
+$$
 
 Setting them equal:
 
-\[
+$$
 G \frac{Mm}{r^2} = \frac{mv^2}{r}
-\]
+$$
 
 Solving for orbital velocity:
 
-\[
+$$
 v = \sqrt{\frac{GM}{r}}
-\]
+$$
 
-This equation is used to initialize **stable circular orbits** in the simulation.
+This equation is used to initialize stable circular orbits in the simulation.
 
 ---
 
 # Numerical Integration
 
-Real physical motion is continuous, but computers simulate time in **discrete steps**.
+The motion of bodies is governed by the differential equations:
 
-We must approximate:
-
-\[
+$$
 \frac{d\mathbf{r}}{dt} = \mathbf{v}
-\]
+$$
 
-\[
+$$
 \frac{d\mathbf{v}}{dt} = \mathbf{a}
-\]
+$$
 
----
-
-# Semi-Implicit Euler (baseline method)
-
-A simple integration method is:
-
-\[
-v(t+\Delta t) = v(t) + a(t)\Delta t
-\]
-
-\[
-r(t+\Delta t) = r(t) + v(t+\Delta t)\Delta t
-\]
-
-However this method can cause **energy drift** in orbital simulations.
+Since computers cannot solve these equations continuously, we approximate them using **numerical integration**.
 
 ---
 
 # Velocity Verlet Integrator
 
-To improve stability, this simulator uses the **Velocity Verlet algorithm**.
+This simulator uses the **Velocity Verlet algorithm**, which provides good numerical stability and energy conservation.
 
 Position update:
 
-\[
+$$
 \mathbf{r}_{t+\Delta t}
 =
 \mathbf{r}_t
@@ -186,13 +143,11 @@ Position update:
 \mathbf{v}_t \Delta t
 +
 \frac{1}{2}\mathbf{a}_t \Delta t^2
-\]
-
-Acceleration is then recomputed.
+$$
 
 Velocity update:
 
-\[
+$$
 \mathbf{v}_{t+\Delta t}
 =
 \mathbf{v}_t
@@ -200,71 +155,73 @@ Velocity update:
 \frac{1}{2}
 (\mathbf{a}_t + \mathbf{a}_{t+\Delta t})
 \Delta t
-\]
+$$
 
-Advantages:
+This method is widely used in:
 
-• better **energy conservation**  
-• improved **numerical stability**  
-• widely used in **astrophysics and molecular dynamics**
+- astrophysical simulations
+- molecular dynamics
+- orbital mechanics
+- particle simulations
 
 ---
 
 # Energy Diagnostics
 
-To validate the simulation we track total system energy.
+To verify the simulation is physically correct we track total system energy.
 
 ### Kinetic Energy
 
-\[
+$$
 K = \frac{1}{2}mv^2
-\]
+$$
 
 ### Gravitational Potential Energy
 
-\[
-U =
-- G \frac{m_i m_j}{r_{ij}}
-\]
+$$
+U = - G \frac{m_i m_j}{r_{ij}}
+$$
 
 ### Total Energy
 
-\[
+$$
 E = K + U
-\]
+$$
 
-For a physically correct simulation:
+For a stable physical simulation:
 
-• kinetic and potential energy **oscillate**  
-• total energy remains **nearly constant**
-
-The UI displays an **energy diagnostic plot** to verify this.
+- kinetic and potential energy **oscillate**
+- total energy remains **approximately constant**
 
 ---
 
-# Chaotic Three-Body Dynamics
+# Three-Body Chaos
 
 Unlike the two-body problem, the **three-body problem has no general analytic solution**.
 
-Small changes in initial conditions lead to dramatically different trajectories.
+Small differences in initial conditions lead to dramatically different trajectories.
 
 This simulator demonstrates:
 
-• chaotic orbital motion  
-• gravitational slingshots  
-• unstable orbital configurations  
+- chaotic orbital motion
+- gravitational slingshots
+- unstable orbital configurations
 
 ---
 
 # Softening Parameter
 
-To avoid numerical instability when two bodies pass extremely close to each other, the simulation uses **gravitational softening**:
+To prevent numerical instability when bodies pass very close to each other, the simulation uses **gravitational softening**:
 
-\[
+$$
 r^2 \rightarrow r^2 + \epsilon^2
-\]
+$$
 
-This prevents singularities when \(r \to 0\).
+This prevents singularities when:
+
+$$
+r \to 0
+$$
 
 ---
 
@@ -272,73 +229,14 @@ This prevents singularities when \(r \to 0\).
 
 The naive gravitational calculation evaluates every pair of bodies:
 
-\[
+$$
 O(N^2)
-\]
+$$
 
-For small systems this is acceptable, but large astrophysical simulations often use algorithms like:
+For large astrophysical simulations, more advanced algorithms are used:
 
-• Barnes–Hut trees  
-• Fast multipole methods  
-
----
-
-# Implementation Architecture
-
-Core components of the simulation:
-
-### Body class
-
-Stores:
-
-• mass  
-• position  
-• velocity  
-• acceleration  
-• visual trail  
-
----
-
-### Physics engine
-
-Computes:
-
-• pairwise gravitational accelerations  
-• velocity updates  
-• position updates  
-
----
-
-### Simulation engine
-
-Controls:
-
-• time stepping  
-• integration method  
-• physics parameters  
-
----
-
-### Visualization
-
-Matplotlib is used to render:
-
-• orbital trajectories  
-• animated simulations  
-• energy diagnostic plots  
-
----
-
-### Interactive UI
-
-The Hugging Face interface allows users to modify:
-
-• timestep  
-• gravitational constant  
-• softening parameter  
-• number of frames  
-• physics steps per frame  
-• body masses and velocities  
+- Barnes–Hut trees
+- Fast multipole methods
 
 ---
 
@@ -360,23 +258,11 @@ nbody-orbital-simulator
 
 # Technologies Used
 
-• Python  
-• NumPy  
-• Matplotlib  
-• Gradio  
-• Hugging Face Spaces  
-
----
-
-# Future Extensions
-
-Possible improvements:
-
-• Barnes–Hut tree algorithm (O(N log N))  
-• Lyapunov exponent chaos measurement  
-• phase-space visualizations  
-• 3-D orbital simulation  
-• galaxy formation simulations  
+- Python  
+- NumPy  
+- Matplotlib  
+- Gradio  
+- Hugging Face Spaces  
 
 ---
 
