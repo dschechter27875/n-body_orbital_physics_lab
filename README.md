@@ -148,16 +148,14 @@ $$
 Since computers cannot solve these equations continuously, we approximate them using **numerical integration**.
 
 ---
-
-# Velocity Verlet Integrator
+### Velocity Verlet Integrator
 
 This simulator uses the **Velocity Verlet algorithm**, which provides good numerical stability and energy conservation.
 
-Position update:
+**Position update**
 
 $$
 \mathbf{r}_{t+\Delta t}
-$$
 =
 \mathbf{r}_t
 +
@@ -166,28 +164,29 @@ $$
 \frac{1}{2}\mathbf{a}_t \Delta t^2
 $$
 
-Velocity update:
+**Velocity update**
 
 $$
 \mathbf{v}_{t+\Delta t}
-$$
 =
 \mathbf{v}_t
 +
 \frac{1}{2}
-(\mathbf{a}_t + \mathbf{a}_{t+\Delta t})
+\left(\mathbf{a}_t + \mathbf{a}_{t+\Delta t}\right)
 \Delta t
 $$
 
 This method is widely used in:
 
-- astrophysical simulations
-- molecular dynamics
-- orbital mechanics
+- astrophysical simulations  
+- molecular dynamics  
+- orbital mechanics  
 - particle simulations
+# Velocity Verlet Integrator
+
+This simulator uses the **Velocity Verlet algorithm**, which provides good numerical stability and energy conservation.
 
 ---
-
 # Energy Diagnostics
 
 To verify the simulation is physically correct we track total system energy.
