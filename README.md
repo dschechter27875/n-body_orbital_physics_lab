@@ -148,33 +148,18 @@ $$
 Since computers cannot solve these equations continuously, we approximate them using **numerical integration**.
 
 ---
+
 ### Velocity Verlet Integrator
 
-This simulator uses the **Velocity Verlet algorithm**, which provides good numerical stability and energy conservation.
+This simulator uses the **Velocity Verlet algorithm**, which provides strong numerical stability and good energy conservation for orbital simulations.
 
 **Position update**
 
-$$
-\mathbf{r}_{t+\Delta t}
-=
-\mathbf{r}_t
-+
-\mathbf{v}_t \Delta t
-+
-\frac{1}{2}\mathbf{a}_t \Delta t^2
-$$
+<img src="https://latex.codecogs.com/svg.image?\mathbf{r}_{t+\Delta%20t}%20=%20\mathbf{r}_t%20+%20\mathbf{v}_t\Delta%20t%20+%20\frac{1}{2}\mathbf{a}_t\Delta%20t^2"/>
 
 **Velocity update**
 
-$$
-\mathbf{v}_{t+\Delta t}
-=
-\mathbf{v}_t
-+
-\frac{1}{2}
-\left(\mathbf{a}_t + \mathbf{a}_{t+\Delta t}\right)
-\Delta t
-$$
+<img src="https://latex.codecogs.com/svg.image?\mathbf{v}_{t+\Delta%20t}%20=%20\mathbf{v}_t%20+%20\frac{1}{2}(\mathbf{a}_t+\mathbf{a}_{t+\Delta%20t})\Delta%20t"/>
 
 This method is widely used in:
 
@@ -182,9 +167,6 @@ This method is widely used in:
 - molecular dynamics  
 - orbital mechanics  
 - particle simulations
-# Velocity Verlet Integrator
-
-This simulator uses the **Velocity Verlet algorithm**, which provides good numerical stability and energy conservation.
 
 ---
 # Energy Diagnostics
