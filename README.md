@@ -15,7 +15,7 @@ https://huggingface.co/spaces/dschechter27/N-Body_Orbital_Physics_Lab
 ![Three Body Demo](assets/three_body_demo.gif)
 
 ---
-# Overview
+## Overview
 
 This project simulates the gravitational motion of multiple bodies interacting through Newton's law of universal gravitation.
 
