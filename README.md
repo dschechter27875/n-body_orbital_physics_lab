@@ -15,6 +15,26 @@ https://huggingface.co/spaces/dschechter27/N-Body_Orbital_Physics_Lab
 ![Three Body Demo](assets/three_body_demo.gif)
 
 ---
+# Overview
+
+This project simulates the gravitational motion of multiple bodies interacting through Newton's law of universal gravitation.
+
+Users can experiment with:
+
+• Two-body orbital systems  
+• Chaotic three-body dynamics  
+• Custom gravitational experiments  
+• Energy conservation diagnostics  
+• Adjustable numerical simulation parameters  
+
+The engine uses a **Velocity Verlet integrator**, a numerical method commonly used in:
+
+• astrophysics simulations  
+• molecular dynamics  
+• orbital mechanics  
+• particle simulations  
+
+---
 
 # Physics Model
 
@@ -237,6 +257,18 @@ For large astrophysical simulations, more advanced algorithms are used:
 
 - Barnes–Hut trees
 - Fast multipole methods
+
+---
+### Interactive UI
+
+The Hugging Face interface allows users to modify:
+
+• timestep  
+• gravitational constant  
+• softening parameter  
+• number of frames  
+• physics steps per frame  
+• body masses and velocities  
 
 ---
 
